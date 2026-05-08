@@ -1,18 +1,29 @@
-const accountModel=require("../models/account.model")
+const accountModel = require("../models/account.model")
 
-async function createAccountController(req,res) {
+// Importing account model to interact with MongoDB collection
 
-    const user=req.user;
 
-    const account=await accountModel.create({
-        user:user
+// Controller function for creating a new account
+async function createAccountController(req, res) {
+
+    // Getting logged-in user data from request object
+    // req.user is added by authentication middleware
+    const user = req.user;
+
+    // Creating a new account in database
+    // and linking it with logged-in user
+    const account = await accountModel.create({
+        user: user
     })
 
+    // Sending success response with created account data
     res.status(201).json({
         account
     })
 
 }
-module.exports={
+
+// Exporting controller function
+module.exports = {
     createAccountController
 }
